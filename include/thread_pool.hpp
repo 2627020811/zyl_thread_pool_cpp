@@ -188,7 +188,7 @@ namespace thread_utils
         auto task = std::make_shared<std::packaged_task<return_type>>(
             std::bind(std::forward<F>(f), std::forward<Args>(args)...))
             // 这段代码是一个使用 std::packaged_task 和 std::bind 的实现，用于封装一个可调用对象（如函数或函数对象）和其参数，以便在异步任务中执行。
-            // std::packaged_task 是 C++11 中引入的一个工具，用于封装可调用对象（函数、函数对象或 Lambda 表达式）的异步任务，并将任务的结果传递给 std::future 以供后续获取。
+            // std::packaged_task 是 C++ 中用于封装可调用对象(函数、lambda表达式等）并异步执行的工具。，并将任务的结果传递给 std::future 以供后续获取。
 
             // #include <iostream>
             //  #include <future>
@@ -214,8 +214,12 @@ namespace thread_utils
 
             // 模板参数 return_type:return_type 是一个模板参数，代表封装的任务（可调用对象）的返回类型。它可以是任何你期望任务执行完后返回的类型，比如 int、double、std::string 或者任何自定义类型。
             // std::packaged_task<return_type> 的作用:std::packaged_task<return_type> 封装了一个任务，并将任务的结果绑定到一个 std::future<return_type> 对象上，允许异步获取任务的结果。当任务执行完成后，可以通过 std::future<return_type> 获取任务的返回值。
-            // std::bind 是一个函数模板，用于将可调用对象和其参数绑定在一起，返回一个新的可调用对象。在这里，f 是可调用对象（函数或函数对象），args... 是其参数。通过 std::forward 将 f 和 args... 转发给 std::bind，以保留参数的完美转发特性。
+            // std::bind 是一个函数模板，用于将可调用对象和其参数绑定在一起，返回一个新的可调用对象。
+
+            // 在这里，f 是可调用对象（函数或函数对象），args... 是其参数。通过 std::forward 将 f 和 args... 转发给 std::bind，以保留参数的完美转发特性。
+
             // std::make_shared 是用于创建 std::shared_ptr 对象的工厂函数，用于动态分配和构造一个 std::packaged_task<return_type> 对象，并返回其指针。
+            
             // 我的理解：std::packaged_task<return_type>是一个可调用对象的封装，它的参数也就是可调用对象我用bind来生成，并创造智能指针指向，作为task的表示
 
             std::future<return_type> res=task->get_future();// 获取与任务结果关联的 future 对象
