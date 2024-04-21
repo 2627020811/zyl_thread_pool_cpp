@@ -217,7 +217,7 @@ namespace thread_utils
             std::future<return_type> res=task->get_future();// 获取与任务结果关联的 future 对象
 
             std::unique_lock<std::shared_mutex> lock(task_queue_mutex); //排他锁（独占锁）,unique_lock是管理shared_mutex的
-            task_queue.emplace([task](){(*task)()});//将任务队列封装为一个lambda表达式并放入任务队列
+            task_queue.emplace([task](){(*task)()});//将任务队列封装为一个lambda表达式并放入任务队列，该lambda表达式会调用std::packaged_task对象的operator()方法，从而执行任务
             //task_queue: 这是一个队列，存储的元素类型是 std::function<void()>，表示可以存放任意可调用对象（函数、lambda 函数、函数对象等）。
             lock.unlock();//解锁,unique_lock离开作用域调用析构函数时会自动解锁，但是也可以手动在某一时刻解锁
             task_queue_cv.notify_one();//唤醒一个等待队列中的线程，notify_all()是唤醒所有
