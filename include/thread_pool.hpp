@@ -90,6 +90,8 @@ namespace thread_utils
         std::size_t get_thread_count();
         std::size_t get_task_count();
     };
+
+
     /**
      * @class thread_pool::worker_thread
      * @brief represents a worker thread in the thread pool.
@@ -134,6 +136,8 @@ namespace thread_utils
         void pause();
         void resume();
     };
+
+    
     // inline/template function implementations
     // thread_pool
 
