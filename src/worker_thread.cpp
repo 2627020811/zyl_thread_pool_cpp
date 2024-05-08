@@ -250,8 +250,8 @@ namespace thread_utils
         case status_t::BLOCKED:
             return;
         case status_t::PAUSED:
-            status.store(status_t::PAUSED);
-            pause_sem.release();//信号量加1的操作
+            status.store(status_t::RUNNING);
+            pause_sem.release();//信号量加1的操作，唤醒线程
             break;
         default:
             throw std::runtime_error("[thread_pool::worker_thread::resume][error]:unknown status");
